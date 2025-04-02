@@ -1,20 +1,13 @@
 import { Component, Input ,OnChanges, SimpleChanges} from '@angular/core';
 import { RepositoriesService } from '../../services/repositories.service';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { FormsModule } from '@angular/forms';
-import { MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
 import { BookmarksService } from '../../services/bookmarks.service';
 import { BookmarksComponent } from '../bookmarks/bookmarks.component';
 import { MatDialog } from '@angular/material/dialog'
+import { SHARED_IMPORTS } from '../../shared/shared-imports';
 
 @Component({
   selector: 'app-repositories-list',
-  imports: [CommonModule,FormsModule,MatInputModule,
-    MatButtonModule,
-    MatCardModule,MatTableModule],
+  imports: [SHARED_IMPORTS],
   templateUrl: './repositories-list.component.html',
   styleUrl: './repositories-list.component.scss'
 })

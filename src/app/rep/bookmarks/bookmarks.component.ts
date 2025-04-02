@@ -1,18 +1,11 @@
 import { Component } from '@angular/core';
 import { BookmarksService } from '../../services/bookmarks.service';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { FormsModule } from '@angular/forms';
-import { MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
 import { MatDialogRef } from '@angular/material/dialog';
+import { SHARED_IMPORTS } from '../../shared/shared-imports';
 
 @Component({
   selector: 'app-bookmarks',
-  imports: [CommonModule,FormsModule,MatInputModule,
-      MatButtonModule,
-      MatCardModule,MatTableModule],
+  imports: [SHARED_IMPORTS],
   templateUrl: './bookmarks.component.html',
   styleUrl: './bookmarks.component.scss'
 })
