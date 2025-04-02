@@ -1,4 +1,10 @@
 import {
+  CdkScrollable,
+  ScrollDispatcher,
+  ScrollingModule,
+  ViewportRuler
+} from "./chunk-7FXZ2F2L.js";
+import {
   animate,
   animateChild,
   group,
@@ -8,12 +14,6 @@ import {
   transition,
   trigger
 } from "./chunk-XEINVMWS.js";
-import {
-  CdkScrollable,
-  ScrollDispatcher,
-  ScrollingModule,
-  ViewportRuler
-} from "./chunk-PR4HACIY.js";
 import {
   A11yModule,
   BidiModule,
@@ -34,7 +34,7 @@ import {
   coerceNumberProperty,
   hasModifierKey,
   supportsScrollBehavior
-} from "./chunk-GU7Q2FVJ.js";
+} from "./chunk-X77ALYKP.js";
 import {
   DOCUMENT,
   Location

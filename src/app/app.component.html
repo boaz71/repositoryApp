@@ -1,2 +1,2 @@
-<app-login [hidden] ="loadData" (getToken)="onDataReceived($event)"></app-login>
-<app-repositories-list [hidden] ="!loadData" [loadData] = "loadData"></app-repositories-list>
+<app-login *ngIf="!loadData" (loggedIn)="loadData = true"></app-login>
+<app-repositories-list *ngIf="loadData" (loggedOut)="loadData = false" [loadData]="loadData"></app-repositories-list>

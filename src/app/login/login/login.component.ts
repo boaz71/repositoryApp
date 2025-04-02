@@ -1,46 +1,53 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { FormsModule } from '@angular/forms';
-import { response } from 'express';
-import { RepositoriesService } from '../../services/repositories.service';
+import { SHARED_IMPORTS } from '../../shared/shared-imports';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  standalone: true,
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, SHARED_IMPORTS],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit {
-  username: string = '';
-  password: string = '';
+export class LoginComponent {
+  @Output() loggedIn = new EventEmitter<void>();
 
-  constructor(private authService: AuthService,private repService:RepositoriesService)  {}
-  ngOnInit(): void {
+  
+  loading = false;
+  error = '';
 
-    
-    // this.authService.getString().subscribe(response =>{
-    //   alert(response);
-    // })
+ 
+
+  loginForm: any;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {
+    this.loginForm = this.fb.group({
+      username: [''],
+      password: ['']
+    });
   }
 
-  @Output() getToken =new EventEmitter<{isToken:boolean}>(); 
 
-  onLogin() {
+  submit(): void {
+    this.error = '';
+    this.loading = true;
 
-    
+    const { username, password } = this.loginForm.value;
 
-    this.authService.login(this.username, this.password).subscribe(
-      (response) => {
-        console.log('Login successful:', response);
-        localStorage.setItem('token', response.token);
-        this.getToken.emit({isToken:true});
-
+    this.authService.login(username!, password!).subscribe({
+      next: () => {
+        this.loading = false;
+        this.loggedIn.emit();
       },
-      (error) => {
-        console.error('Login failed:', error);
-        this.getToken.emit({isToken:false});
-        alert('Invalid credentials');
+      error: () => {
+        this.loading = false;
+        this.error = 'שם משתמש או סיסמה שגויים';
       }
-    );
+    });
   }
 }

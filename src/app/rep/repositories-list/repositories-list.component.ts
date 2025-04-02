@@ -1,9 +1,10 @@
-import { Component, Input ,OnChanges, SimpleChanges} from '@angular/core';
+import { Component, EventEmitter, Input ,OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import { RepositoriesService } from '../../services/repositories.service';
 import { BookmarksService } from '../../services/bookmarks.service';
 import { BookmarksComponent } from '../bookmarks/bookmarks.component';
 import { MatDialog } from '@angular/material/dialog'
 import { SHARED_IMPORTS } from '../../shared/shared-imports';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-repositories-list',
@@ -11,39 +12,27 @@ import { SHARED_IMPORTS } from '../../shared/shared-imports';
   templateUrl: './repositories-list.component.html',
   styleUrl: './repositories-list.component.scss'
 })
-export class RepositoriesListComponent implements OnChanges {
-
+export class RepositoriesListComponent implements OnInit {  
+ 
   searchKeyword: string = '';
   repositories: any[] = [];
   displayedColumns: string[] = ['name', 'avatar', 'owner', 'bookmark']; // עמודות הטבלה
+  onLoad= false; // משתנה בוליאני לצורך טעינת נתונים
 
+  constructor(private authService: AuthService,private repService:RepositoriesService,private bookmarksService:BookmarksService,private dialog: MatDialog) {}
 
-  constructor(private repService:RepositoriesService,private bookmarksService:BookmarksService,private dialog: MatDialog) {}
+  @Output() loggedOut = new EventEmitter<void>();
 
   @Input() loadData!: boolean;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // if (changes['loadData']) {
-    //   const previousValue = changes['loadData'].previousValue;
-    //   const currentValue = changes['loadData'].currentValue;
-    //   console.log(`loadData changed: ${previousValue} -> ${currentValue}`);
+  ngOnInit(): void {
 
-    //   if (currentValue==true) {
-    //     this.repService.searchRepositories('angular').subscribe((data => {
-    //       debugger;
-    //       this.repositories = data.items || [];
-    //     }))  
-    //   }
-
-    //   // if (currentValue) {
-    //   //   console.log('The status is now not changed');
-    //   // } else {
-    //   //   console.log('The status is now changed');
-    //   // }
-    // }
-   } 
+    this.onLoad= true; // אתחול משתנה הטעינה
+    
+  }
 
    onSearch() {
+    this.onLoad= false;
     if (!this.searchKeyword.trim()) {
       alert('Please enter a keyword!');
       return;
@@ -72,6 +61,11 @@ export class RepositoriesListComponent implements OnChanges {
       height: '80vh',
       data: this.bookmarksService.getBookmarks()
     });
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.loggedOut.emit();
   }
 
 }

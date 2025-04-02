@@ -1,9 +1,25 @@
-<form (ngSubmit)="onLogin()">
-    <label for="username">Username:</label>
-    <input type="text" id="username" [(ngModel)] ="username" name="username" required />
-  
-    <label for="password">Password:</label>
-    <input type="password" id="password" [(ngModel)]="password" name="password" required />
-  
-    <button type="submit">Login</button>
-  </form>
+<div class="login-container">
+  <mat-card class="login-card">
+    <h2>🔐 התחברות</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>שם משתמש</mat-label>
+        <input matInput formControlName="username" placeholder="הכנס שם משתמש">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>סיסמה</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="••••••••">
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+        התחבר
+      </button>
+
+      <mat-progress-bar *ngIf="loading" mode="indeterminate" class="loading-bar"></mat-progress-bar>
+
+      <mat-error *ngIf="error">{{ error }}</mat-error>
+    </form>
+  </mat-card>
+</div>

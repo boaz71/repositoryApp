@@ -1,5 +1,11 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
+  CdkScrollable,
+  ScrollDispatcher,
+  ScrollingModule,
+  ViewportRuler
+} from "./chunk-4HSNRNOT.js";
+import {
   animate,
   animateChild,
   group,
@@ -9,12 +15,6 @@ import {
   transition,
   trigger
 } from "./chunk-BGSBCLK6.js";
-import {
-  CdkScrollable,
-  ScrollDispatcher,
-  ScrollingModule,
-  ViewportRuler
-} from "./chunk-4HSNRNOT.js";
 import {
   A11yModule,
   BidiModule,
