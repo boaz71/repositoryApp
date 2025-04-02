@@ -5,6 +5,7 @@ import { BookmarksComponent } from '../bookmarks/bookmarks.component';
 import { MatDialog } from '@angular/material/dialog'
 import { SHARED_IMPORTS } from '../../shared/shared-imports';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-repositories-list',
@@ -19,7 +20,7 @@ export class RepositoriesListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'avatar', 'owner', 'bookmark']; // עמודות הטבלה
   onLoad= false; // משתנה בוליאני לצורך טעינת נתונים
 
-  constructor(private authService: AuthService,private repService:RepositoriesService,private bookmarksService:BookmarksService,private dialog: MatDialog) {}
+  constructor(private router: Router,private authService: AuthService,private repService:RepositoriesService,private bookmarksService:BookmarksService,private dialog: MatDialog) {}
 
   @Output() loggedOut = new EventEmitter<void>();
 
@@ -65,6 +66,7 @@ export class RepositoriesListComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/login']); // ניווט חזרה למסך ההתחברות
     this.loggedOut.emit();
   }
 

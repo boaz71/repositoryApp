@@ -28,19 +28,20 @@ export class AuthService {
     );
   }
 
-  logout() {
-    localStorage.removeItem("token");
-  }
-
   getToken(): string | null {
-    return localStorage.getItem("token");
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('token');
+    }
+    return null;
   }
-
+  
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
-
-  getString(): Observable<any> {
-    return this.http.get(`${this.apiUrl}GetString`);
+  
+  logout(): void {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+    }
   }
 }

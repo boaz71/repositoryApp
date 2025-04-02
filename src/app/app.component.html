@@ -1,2 +1,1 @@
-<app-login *ngIf="!loadData" (loggedIn)="loadData = true"></app-login>
-<app-repositories-list *ngIf="loadData" (loggedOut)="loadData = false" [loadData]="loadData"></app-repositories-list>
+<router-outlet></router-outlet>
