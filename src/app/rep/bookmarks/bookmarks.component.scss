@@ -1,3 +1,52 @@
+.rep-container,
+.dialog-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.rep-card,
+.bookmark-card {
+  width: 90%;
+  max-width: 1000px;
+  padding: 2rem;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.search-field {
+  flex-grow: 1;
+}
+
+.rep-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.results-table {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.dialog-actions {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+
 :host {
     display: flex;
     flex-direction: column;
@@ -33,4 +82,5 @@
     align-self: flex-end;
     margin-top: 20px;
   }
+  
   

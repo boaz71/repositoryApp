@@ -18,8 +18,7 @@ export class RepositoriesListComponent implements OnInit {
   searchKeyword: string = '';
   repositories: any[] = [];
   displayedColumns: string[] = ['name', 'avatar', 'owner', 'bookmark']; // עמודות הטבלה
-  onLoad= false; // משתנה בוליאני לצורך טעינת נתונים
-
+  missingReposetorySearch: boolean = false; // משתנה בוליאני לצורך הצגת הודעת שגיאה אם לא נמצאו תוצאות חיפוש
   constructor(private router: Router,private authService: AuthService,private repService:RepositoriesService,private bookmarksService:BookmarksService,private dialog: MatDialog) {}
 
   @Output() loggedOut = new EventEmitter<void>();
@@ -28,12 +27,11 @@ export class RepositoriesListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.onLoad= true; // אתחול משתנה הטעינה
     
   }
 
    onSearch() {
-    this.onLoad= false;
+    this.missingReposetorySearch = false; // איפוס משתנה החיפוש
     if (!this.searchKeyword.trim()) {
       alert('Please enter a keyword!');
       return;
@@ -42,8 +40,12 @@ export class RepositoriesListComponent implements OnInit {
     this.repService.searchRepositories(this.searchKeyword).subscribe(
       (data: any) => {
         this.repositories = data.items || [];
+        if (this.repositories.length === 0) {
+          this.missingReposetorySearch = true; // אם לא נמצאו תוצאות חיפוש
+        } 
       },
       (error) => {
+        this.missingReposetorySearch = true; // אם לא נמצאו תוצאות חיפוש
         console.error('Error fetching repositories:', error);
         alert('Failed to fetch repositories.');
       }
