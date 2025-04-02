@@ -1,0 +1,2 @@
+<app-login [hidden] ="loadData" (getToken)="onDataReceived($event)"></app-login>
+<app-repositories-list [hidden] ="!loadData" [loadData] = "loadData"></app-repositories-list>

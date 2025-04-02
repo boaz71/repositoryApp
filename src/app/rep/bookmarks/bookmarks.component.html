@@ -1,0 +1,38 @@
+<div class="dialog-container">
+    <h2>Your Bookmarked Repositories</h2>
+  
+    <div *ngIf="bookmarks.length > 0; else noBookmarks">
+      <table mat-table [dataSource]="bookmarks" class="mat-elevation-z8 results-table">
+        <!-- Repository Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Repository Name </th>
+          <td mat-cell *matCellDef="let repo"> {{ repo.name }} </td>
+        </ng-container>
+  
+        <!-- Owner Avatar Column -->
+        <ng-container matColumnDef="avatar">
+          <th mat-header-cell *matHeaderCellDef> Owner Avatar </th>
+          <td mat-cell *matCellDef="let repo">
+            <img [src]="repo.owner.avatar_url" alt="Avatar" class="avatar" />
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let repo">
+              <button mat-button color="warn" (click)="removeBookmark(repo)">Remove</button>
+            </td>
+         </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name', 'avatar','actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'avatar','actions'];"></tr>
+      </table>
+    </div>
+  
+    <ng-template #noBookmarks>
+      <div class="no-results">No bookmarks yet. Add some repositories!</div>
+    </ng-template>
+  
+    <button mat-button color="warn" (click)="closeDialog()">Close</button>
+  </div>
+  
